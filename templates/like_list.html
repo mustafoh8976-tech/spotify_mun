@@ -1,0 +1,21 @@
+{% extends 'app.html' %}
+{% load static %}
+{% block pagecss %}<link rel="stylesheet" href="{% static 'css/like_list.css' %}">{% endblock %}
+{% block title %}Лайки{% endblock %}
+{% block content %}
+<div class="head"><div><h1>Лайки</h1><p class="sub">Отметок: {{ likes|length }}</p></div>
+  <form method="post" action="{% url 'like_create' %}">{% csrf_token %}<button type="submit" class="btn">Поставить лайк</button></form></div>
+{% if likes %}
+<div class="grid">
+  {% for like in likes %}
+  <div class="tile" style="--h:{% widthratio like.id 1 47 %}">
+    <span class="vinyl" aria-hidden="true"></span>
+    <div><h3>Лайк №{{ like.id }}</h3><p>{{ like.user_id }}</p></div>
+    <div class="t-act"><form method="post" action="{% url 'like_delete' like.id %}" data-confirm="Убрать лайк?">{% csrf_token %}<button type="submit" class="icon" aria-label="Убрать лайк"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button></form></div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty"><span class="vinyl" style="--h:330"></span><strong>Лайков пока нет</strong>Отмеченное вами появится здесь.</div>
+{% endif %}
+{% endblock %}

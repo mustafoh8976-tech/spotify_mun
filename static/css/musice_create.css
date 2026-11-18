@@ -1,0 +1,5 @@
+.main{--ph:270}
+.drop{display:flex;align-items:center;gap:16px;padding:20px;border-radius:8px;border:2px dashed #535353;cursor:pointer;color:var(--mute);transition:border-color .15s,color .15s}
+.drop:hover,.drop:focus-within{border-color:var(--green);color:#fff}
+.drop svg{width:28px;height:28px;color:var(--green);flex:none}
+.drop input{position:absolute;opacity:0;pointer-events:none}

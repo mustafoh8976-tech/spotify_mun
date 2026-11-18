@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+  {% block pagecss %}{% endblock %}{% endblock %}
+{% block body %}
+<div class="auth">
+  <div class="auth-art">
+    <div class="brand"><span class="vinyl spin" style="--s:36px;--h:45"></span>Spotify</div>
+    <h2>{% block headline %}Твоя музыка. Твой звук.{% endblock %}</h2>
+    <span class="vinyl" aria-hidden="true"></span>
+  </div>
+  <div class="auth-form"><div class="box">{% block form %}{% endblock %}</div></div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'app.html' %}
+{% load static %}
+{% block pagecss %}<link rel="stylesheet" href="{% static 'css/musice_update.css' %}">{% endblock %}
+{% block title %}Изменить трек{% endblock %}
+{% block content %}
+<div class="head"><div><h1>Изменить трек</h1><p class="sub">Файл можно не загружать заново.</p></div></div>
+<div class="card">
+  {% if error %}<div class="alert" role="alert">{{ error }}</div>{% endif %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="field"><label for="n">Название</label><input id="n" type="text" name="name_music" value="{{ music.name_music }}" required></div>
+    <div class="field"><label>Заменить файл</label>
+      <label class="drop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg><span id="fname">Оставить текущий файл</span><input type="file" name="musice" accept="audio/*" onchange="document.getElementById('fname').textContent=this.files[0]?this.files[0].name:'Оставить текущий файл'"></label></div>
+    <div class="actions"><button class="btn" type="submit">Сохранить</button><a class="btn ghost" href="{% url 'musice_list' %}">Отмена</a></div>
+  </form>
+</div>
+{% endblock %}

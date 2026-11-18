@@ -1,0 +1,29 @@
+{% extends 'app.html' %}
+{% load static %}
+{% block pagecss %}<link rel="stylesheet" href="{% static 'css/musice_list.css' %}">{% endblock %}
+{% block title %}Музыка{% endblock %}
+{% block content %}
+<div class="head">
+  <div><h1>Музыка</h1><p class="sub">Треков в библиотеке: {{ musics|length }}</p></div>
+  <a class="btn" href="{% url 'musice_create' %}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Добавить трек</a>
+</div>
+{% if musics %}
+<div class="tracks">
+  {% for music in musics %}
+  <div class="track" data-src="{{ music.musice.url }}" data-title="{{ music.name_music }}" data-hue="{% widthratio music.id 1 47 %}">
+    <div class="cover">
+      <span class="vinyl" style="--h:{% widthratio music.id 1 47 %}"></span>
+      <button class="play" aria-label="Играть: {{ music.name_music }}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+    </div>
+    <div style="min-width:0"><div class="t-name">{{ music.name_music }}</div><div class="t-meta">{{ music.user_id }}</div></div>
+    <div class="t-act">
+      <a class="icon" href="{% url 'musice_update' music.id %}" aria-label="Изменить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></a>
+      <form method="post" action="{% url 'musice_delete' music.id %}" data-confirm="Удалить «{{ music.name_music }}»?">{% csrf_token %}<button type="submit" class="icon del" aria-label="Удалить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button></form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty"><span class="vinyl" style="--h:335"></span><strong>Здесь пока тихо</strong>Загрузите первый трек, и он появится в списке.<a class="btn" href="{% url 'musice_create' %}">Добавить трек</a></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/app.css' %}">
+  {% block pagecss %}{% endblock %}{% endblock %}
+{% block body %}
+{% with page=request.resolver_match.url_name %}
+<div class="shell">
+  <aside class="side">
+    <a class="brand" href="{% url 'musice_list' %}" aria-label="Главная">
+      <span class="vinyl spin" style="--s:36px;--h:335"></span><span>Spotify</span>
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="{% url 'musice_list' %}" {% if page in 'musice_list musice_create musice_update' %}aria-current="page"{% endif %}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span>Музыка</span></a>
+      <a href="{% url 'genere_list' %}" {% if page in 'genere_list genere_create genere_update' %}aria-current="page"{% endif %}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h6"/></svg><span>Жанры</span></a>
+      <a href="{% url 'alsbome_list' %}" {% if page in 'alsbome_list alsbome_create alsbome_update' %}aria-current="page"{% endif %}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg><span>Альбомы</span></a>
+      <a href="{% url 'like_list' %}" {% if page in 'like_list' %}aria-current="page"{% endif %}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.7-8 11-8 11z"/></svg><span>Лайки</span></a>
+    </nav>
+    {% if user.is_authenticated %}
+    <div class="side-foot">
+      <span class="avatar">{{ user.username|slice:":1"|upper }}</span>
+      <div><b>{{ user.username }}</b><a href="{% url 'logout' %}">Выйти</a></div>
+    </div>
+    {% else %}
+    <div class="side-foot"><div><a href="{% url 'login' %}"><b>Войти</b></a></div></div>
+    {% endif %}
+  </aside>
+
+  <main class="main">{% block content %}{% endblock %}</main>
+
+  <section class="bar" id="bar" aria-label="Плеер">
+    <div class="bar-now">
+      <span class="vinyl" id="bar-vinyl" style="--h:335"></span>
+      <div style="min-width:0"><div class="bar-title" id="bar-title">Выберите трек</div><div class="bar-hint" id="bar-hint">Нажмите на пластинку</div></div>
+    </div>
+    <div class="bar-mid">
+      <div class="ctrl">
+        <button class="icon" id="prev" aria-label="Назад"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+        <button class="icon big" id="toggle" aria-label="Играть"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+        <button class="icon" id="next" aria-label="Вперёд"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="seek"><span id="cur">0:00</span><input type="range" id="seek" min="0" max="100" value="0" step="0.1" aria-label="Перемотка"><span id="dur">0:00</span></div>
+    </div>
+    <div class="vol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4zM16 8a5 5 0 010 8"/></svg><input type="range" id="vol" min="0" max="1" step="0.01" value="1" aria-label="Громкость"></div>
+  </section>
+</div>
+{% endwith %}
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/player.js' %}"></script>{% endblock %}

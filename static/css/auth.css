@@ -1,0 +1,10 @@
+body{background:linear-gradient(180deg,#1f1f1f 0,#000 420px),#000;min-height:100vh}
+.auth{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:32px 16px}
+.auth-logo{display:flex;align-items:center;gap:10px;font:900 28px var(--body);letter-spacing:-.03em}
+.auth-logo svg{width:40px;height:40px}
+.auth .box{width:100%;max-width:440px;background:var(--bg);border-radius:8px;padding:clamp(24px,5vw,48px)}
+.auth h1{font-size:clamp(28px,5vw,36px);text-align:center;margin-bottom:28px;letter-spacing:-.03em}
+.auth .sub{display:none}
+.alt{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);text-align:center;color:var(--mute);font-size:15px}
+.alt a{color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.alt a:hover{color:var(--green)}

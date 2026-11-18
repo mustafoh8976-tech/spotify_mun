@@ -1,0 +1,15 @@
+{% extends 'app.html' %}
+{% load static %}
+{% block pagecss %}<link rel="stylesheet" href="{% static 'css/alsbome_create.css' %}">{% endblock %}
+{% block title %}Новый альбом{% endblock %}
+{% block content %}
+<div class="head"><div><h1>Новый альбом</h1><p class="sub">Дата создания проставится автоматически.</p></div></div>
+<div class="card">
+  {% if error %}<div class="alert" role="alert">{{ error }}</div>{% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="field"><label for="n">Название альбома</label><input id="n" type="text" name="name_als"  required autofocus></div>
+    <div class="actions"><button class="btn" type="submit">Сохранить</button><a class="btn ghost" href="{% url 'alsbome_list' %}">Отмена</a></div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'auth.html' %}
+{% load static %}
+{% block pagecss %}<link rel="stylesheet" href="{% static 'css/login.css' %}">{% endblock %}
+{% block title %}Вход{% endblock %}
+{% block form %}
+<h1>Вход</h1>
+<p class="sub">Рады видеть тебя снова.</p>
+{% if error %}<div class="alert" role="alert">{{ error }}</div>{% endif %}
+<form method="post">
+  {% csrf_token %}
+  <div class="field"><label for="u">Имя пользователя</label><input id="u" type="text" name="username" autocomplete="username" required autofocus></div>
+  <div class="field"><label for="p">Пароль</label><input id="p" type="password" name="password" autocomplete="current-password" required></div>
+  <button class="btn block" type="submit">Войти</button>
+</form>
+<p class="alt">Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+{% endblock %}

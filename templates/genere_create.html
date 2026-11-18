@@ -1,0 +1,15 @@
+{% extends 'app.html' %}
+{% load static %}
+{% block pagecss %}<link rel="stylesheet" href="{% static 'css/genere_create.css' %}">{% endblock %}
+{% block title %}Новый жанр{% endblock %}
+{% block content %}
+<div class="head"><div><h1>Новый жанр</h1><p class="sub">Например: рок, джаз, лоу-фай.</p></div></div>
+<div class="card">
+  {% if error %}<div class="alert" role="alert">{{ error }}</div>{% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="field"><label for="n">Название жанра</label><input id="n" type="text" name="name_g"  required autofocus></div>
+    <div class="actions"><button class="btn" type="submit">Сохранить</button><a class="btn ghost" href="{% url 'genere_list' %}">Отмена</a></div>
+  </form>
+</div>
+{% endblock %}

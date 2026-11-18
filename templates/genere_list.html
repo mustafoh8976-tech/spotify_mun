@@ -1,0 +1,24 @@
+{% extends 'app.html' %}
+{% load static %}
+{% block pagecss %}<link rel="stylesheet" href="{% static 'css/genere_list.css' %}">{% endblock %}
+{% block title %}Жанры{% endblock %}
+{% block content %}
+<div class="head"><div><h1>Жанры</h1><p class="sub">Жанров в каталоге: {{ generes|length }}</p></div>
+  <a class="btn" href="{% url 'genere_create' %}">Добавить жанр</a></div>
+{% if generes %}
+<div class="grid">
+  {% for genere in generes %}
+  <div class="tile" style="--h:{% widthratio genere.id 1 47 %}">
+    <span class="vinyl" aria-hidden="true"></span>
+    <h3>{{ genere.name_g }}</h3>
+    <div class="t-act">
+      <a class="icon" href="{% url 'genere_update' genere.id %}" aria-label="Изменить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></a>
+      <form method="post" action="{% url 'genere_delete' genere.id %}" data-confirm="Удалить жанр «{{ genere.name_g }}»?">{% csrf_token %}<button type="submit" class="icon" aria-label="Удалить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button></form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty"><span class="vinyl" style="--h:200"></span><strong>Жанров пока нет</strong>Добавьте первый, чтобы разложить музыку по полочкам.</div>
+{% endif %}
+{% endblock %}
